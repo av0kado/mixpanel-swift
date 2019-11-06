@@ -84,7 +84,7 @@ class Track {
 
     func registerSuperProperties(_ properties: Properties,
                                  superProperties: InternalProperties) -> InternalProperties {
-        if Mixpanel.mainInstance().hasOptedOutTracking() {
+        if Mixpanel_.mainInstance().hasOptedOutTracking() {
             return superProperties
         }
 
@@ -98,7 +98,7 @@ class Track {
     func registerSuperPropertiesOnce(_ properties: Properties,
                                      superProperties: InternalProperties,
                                      defaultValue: MixpanelType?) -> InternalProperties {
-        if Mixpanel.mainInstance().hasOptedOutTracking() {
+        if Mixpanel_.mainInstance().hasOptedOutTracking() {
             return superProperties
         }
 
@@ -134,7 +134,7 @@ class Track {
     }
 
     func time(event: String?, timedEvents: InternalProperties, startTime: Double) -> InternalProperties {
-        if Mixpanel.mainInstance().hasOptedOutTracking() {
+        if Mixpanel_.mainInstance().hasOptedOutTracking() {
             return timedEvents
         }
         var updatedTimedEvents = timedEvents

@@ -37,7 +37,7 @@ open class People {
     }
 
     func addPeopleRecordToQueueWithAction(_ action: String, properties: InternalProperties) {
-        if Mixpanel.mainInstance().hasOptedOutTracking() {
+        if Mixpanel_.mainInstance().hasOptedOutTracking() {
             return
         }
         let epochMilliseconds = round(Date().timeIntervalSince1970 * 1000)
@@ -68,15 +68,15 @@ open class People {
             }
             self.metadata.toDict(isEvent: false).forEach { (k,v) in r[k] = v }
 
-            if let anonymousId = Mixpanel.mainInstance().anonymousId {
+            if let anonymousId = Mixpanel_.mainInstance().anonymousId {
                r["$device_id"] = anonymousId
             }
 
-            if let userId = Mixpanel.mainInstance().userId {
+            if let userId = Mixpanel_.mainInstance().userId {
                 r["$user_id"] = userId
             }
 
-            if let hadPersistedDistinctId = Mixpanel.mainInstance().hadPersistedDistinctId {
+            if let hadPersistedDistinctId = Mixpanel_.mainInstance().hadPersistedDistinctId {
                 r["$had_persisted_distinct_id"] = hadPersistedDistinctId
             }
 

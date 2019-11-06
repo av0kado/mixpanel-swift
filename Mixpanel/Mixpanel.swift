@@ -12,7 +12,7 @@ import UIKit
 #endif // os(OSX)
 
 /// The primary class for integrating Mixpanel with your app.
-open class Mixpanel {
+open class Mixpanel_ {
 
     #if !os(OSX) && !WATCH_OS
     /**
@@ -104,7 +104,7 @@ open class Mixpanel {
         } else {
             assert(false, "You have to call initialize(token:) before calling the main instance, " +
                 "or define a new main instance if removing the main one")
-            return Mixpanel.initialize(token: "")
+            return Mixpanel_.initialize(token: "")
         }
     }
 

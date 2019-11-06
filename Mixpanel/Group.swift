@@ -30,7 +30,7 @@ open class Group {
     }
 
     func addGroupRecordToQueueWithAction(_ action: String, properties: InternalProperties) {
-        if Mixpanel.mainInstance().hasOptedOutTracking() {
+        if Mixpanel_.mainInstance().hasOptedOutTracking() {
             return
         }
         let epochMilliseconds = round(Date().timeIntervalSince1970 * 1000)
@@ -55,7 +55,7 @@ open class Group {
             self.addGroupObject(r)
 
             self.lock.read{
-                Persistence.archiveGroups(Mixpanel.mainInstance().flushGroupsQueue + Mixpanel.mainInstance().groupsQueue, token: self.apiToken)
+                Persistence.archiveGroups(Mixpanel_.mainInstance().flushGroupsQueue + Mixpanel_.mainInstance().groupsQueue, token: self.apiToken)
             }
         }
 
@@ -66,9 +66,9 @@ open class Group {
 
     func addGroupObject(_ r: InternalProperties) {
         self.lock.write {
-            Mixpanel.mainInstance().groupsQueue.append(r)
-            if Mixpanel.mainInstance().groupsQueue.count > QueueConstants.queueSize {
-                Mixpanel.mainInstance().groupsQueue.remove(at: 0)
+            Mixpanel_.mainInstance().groupsQueue.append(r)
+            if Mixpanel_.mainInstance().groupsQueue.count > QueueConstants.queueSize {
+                Mixpanel_.mainInstance().groupsQueue.remove(at: 0)
             }
         }
     }
@@ -160,6 +160,6 @@ open class Group {
      */
     open func deleteGroup() {
         addGroupRecordToQueueWithAction("$delete", properties: [:])
-        Mixpanel.mainInstance().removeCachedGroup(groupKey: groupKey, groupID: groupID)
+        Mixpanel_.mainInstance().removeCachedGroup(groupKey: groupKey, groupID: groupID)
     }
 }
